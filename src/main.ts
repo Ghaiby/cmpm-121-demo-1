@@ -16,7 +16,7 @@ button.innerText = "🏈";
 app.append(button);
 button.addEventListener("click", () => {
   clicks++;
-  countDiv.innerText = `Touchdowns: ${clicks}`;
+  updateDisplay();
 });
 
 //Add div to show count
@@ -25,24 +25,40 @@ countDiv.innerText = "Touchdowns: 0";
 app.append(countDiv);
 
 //automatic one second clicker
-setInterval(() => {
-  clicks++;
-  countDiv.innerText = `Touchdowns: ${clicks}`;
-}, 1000);
+// setInterval(() => {
+//   clicks++;
+//   countDiv.innerText = `Touchdowns: ${clicks}`;
+// }, 1000);
 
+//upgrade button
+let growthRate: number = 0;
+const upgradeButton = document.createElement('button');
+upgradeButton.innerText = "+1 auto TD/s: 10 TDs";
+upgradeButton.className = "upgradeButton"
+app.append(upgradeButton);
+upgradeButton.addEventListener('click', () => {
+    if (clicks >= 10) {
+        clicks -= 10; // Deduct cost of the upgrade
+        growthRate++; // Increase growth rate by 1
+        updateDisplay();
+    }
+});
+
+// Update the display and manage the upgrade button's state
+function updateDisplay() {
+    countDiv.innerText = `Touchdowns: ${clicks} `;
+    upgradeButton.disabled = clicks < 10;
+}
 
 //continuous growth
 let lastTimestamp = performance.now();
 function updateCounter(timestamp: number) {
-    const deltaTime = (timestamp - lastTimestamp) / 1000; 
-    lastTimestamp = timestamp;
+  const deltaTime = (timestamp - lastTimestamp) / 1000;
+  lastTimestamp = timestamp;
 
-    clicks += deltaTime; 
-    countDiv.innerText = `Touchdowns: ${clicks}`;
-
-    requestAnimationFrame(updateCounter);
+  clicks += growthRate * deltaTime;
+  updateDisplay();
+  requestAnimationFrame(updateCounter);
 }
 
 requestAnimationFrame(updateCounter);
-
-

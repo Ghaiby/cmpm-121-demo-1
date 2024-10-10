@@ -34,7 +34,8 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: #646cff;
+  color: #414141;
+  margin-bottom: 4em;
 }
 
 #app {
@@ -52,6 +53,18 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.upgradeButton {
+  color: rgb(20, 220, 37);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 2em 1.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f1f1f1;
   cursor: pointer;
   transition: border-color 0.25s;
 }
