@@ -34,18 +34,18 @@ app.append(countDiv);
 const upgrades: string[] = [];
 let growthRate: number = 0;
 const inventory: number[] = [];
-const A = document.createElement("button");
-A.className = "upgradeButton";
-A.name = "A";
-let priceA: number = 10;
-A.innerText = `+0.1 auto TD/s: ${priceA} TDs`;
-app.append(A);
-upgrades.push(A.name);
-A.addEventListener("click", () => {
-  if (clicks >= priceA) {
-    clicks -= priceA; // Deduct cost of the upgrade
+const Run = document.createElement("button");
+Run.className = "upgradeButton";
+Run.name = "Run";
+let priceRun: number = 10;
+Run.innerText = `+0.1 auto TD/s: ${priceRun} TDs`;
+app.append(Run);
+upgrades.push(Run.name);
+Run.addEventListener("click", () => {
+  if (clicks >= priceRun) {
+    clicks -= priceRun; // Deduct cost of the upgrade
     growthRate += 0.1;
-    priceA *= 1.15; 
+    priceRun *= 1.15;
     updateDisplay();
     if (inventory[0]) {
       inventory[0] += 1;
@@ -55,18 +55,18 @@ A.addEventListener("click", () => {
   }
 });
 
-const B = document.createElement("button");
-B.className = "upgradeButton";
-B.name = "B";
-let priceB: number = 100;
-B.innerText = `+2 auto TD/s: ${priceB} TDs`;
-app.append(B);
-upgrades.push(B.name);
-B.addEventListener("click", () => {
-  if (clicks >= priceB) {
-    clicks -= priceB; // Deduct cost of the upgrade
+const Pass = document.createElement("button");
+Pass.className = "upgradeButton";
+Pass.name = "Pass";
+let pricePass: number = 100;
+Run.innerText = `+2 auto TD/s: ${pricePass} TDs`;
+app.append(Pass);
+upgrades.push(Pass.name);
+Pass.addEventListener("click", () => {
+  if (clicks >= pricePass) {
+    clicks -= pricePass; // Deduct cost of the upgrade
     growthRate += 2;
-    priceB *=1.15;
+    pricePass *= 1.15;
     updateDisplay();
     if (inventory[0]) {
       inventory[0] += 1;
@@ -76,18 +76,18 @@ B.addEventListener("click", () => {
   }
 });
 
-const C = document.createElement("button");
-C.className = "upgradeButton";
-C.name = "C";
-let priceC: number = 1000;
-C.innerText = `+50 auto TD/s: ${priceC} TDs`;
-app.append(C);
-upgrades.push(C.name);
-C.addEventListener("click", () => {
-  if (clicks >= priceC) {
-    clicks -= priceC; // Deduct cost of the upgrade
+const HM = document.createElement("button");
+HM.className = "upgradeButton";
+HM.name = "Hail Mary";
+let priceHM: number = 1000;
+HM.innerText = `+50 auto TD/s: ${priceHM} TDs`;
+app.append(HM);
+upgrades.push(HM.name);
+HM.addEventListener("click", () => {
+  if (clicks >= priceHM) {
+    clicks -= priceHM; // Deduct cost of the upgrade
     growthRate += 50;
-    priceC *= 1.15
+    priceHM *= 1.15;
     updateDisplay();
     if (inventory[0]) {
       inventory[0] += 1;
@@ -107,12 +107,12 @@ function updateDisplay() {
     }
     countDiv.innerText += ` ${upgrades[i]} : ${inventory[i]}`;
   }
-  A.disabled = clicks < 10;
-  B.disabled = clicks < 100;
-  C.disabled = clicks < 1000;
-  A.innerText = `+0.1 auto TD/s: ${priceA} TDs`;
-  B.innerText = `+2 auto TD/s: ${priceB} TDs`;
-  C.innerText = `+50 auto TD/s: ${priceC} TDs`;
+  Run.disabled = clicks < 10;
+  Pass.disabled = clicks < 100;
+  HM.disabled = clicks < 1000;
+  Run.innerText = `RUN \n+0.1 auto TD/s: ${priceRun} TDs`;
+  Pass.innerText = `PASS \n+2 auto TD/s: ${pricePass} TDs`;
+  HM.innerText = `HAIL MARY \n+50 auto TD/s: ${priceHM} TDs`;
 }
 
 //continuous growth
