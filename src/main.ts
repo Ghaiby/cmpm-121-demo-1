@@ -16,7 +16,7 @@ button.innerText = "🏈";
 app.append(button);
 button.addEventListener("click", () => {
   clicks++;
-  updateDisplay()
+  updateDisplay();
 });
 
 //Add div to show count
@@ -35,58 +35,64 @@ const upgrades: string[] = [];
 let growthRate: number = 0;
 const inventory: number[] = [];
 const A = document.createElement("button");
-A.innerText = "+0.1 auto TD/s: 10 TDs";
 A.className = "upgradeButton";
 A.name = "A";
+let priceA: number = 10;
+A.innerText = `+0.1 auto TD/s: ${priceA} TDs`;
 app.append(A);
 upgrades.push(A.name);
 A.addEventListener("click", () => {
-  if (clicks >= 10) {
-    clicks -= 10; // Deduct cost of the upgrade
-    growthRate+= 0.1; 
+  if (clicks >= priceA) {
+    clicks -= priceA; // Deduct cost of the upgrade
+    growthRate += 0.1;
+    priceA *= 1.15; 
     updateDisplay();
-    if(inventory[0]){ 
-        inventory[0] += 1;
-    }else{ 
-        inventory[0] = 1;
+    if (inventory[0]) {
+      inventory[0] += 1;
+    } else {
+      inventory[0] = 1;
     }
   }
 });
 
 const B = document.createElement("button");
-B.innerText = "+2 auto TD/s: 100 TDs";
 B.className = "upgradeButton";
 B.name = "B";
+let priceB: number = 100;
+B.innerText = `+2 auto TD/s: ${priceB} TDs`;
 app.append(B);
 upgrades.push(B.name);
 B.addEventListener("click", () => {
-  if (clicks >= 100) {
-    clicks -= 100; // Deduct cost of the upgrade
-    growthRate += 2; 
+  if (clicks >= priceB) {
+    clicks -= priceB; // Deduct cost of the upgrade
+    growthRate += 2;
+    priceB *=1.15;
     updateDisplay();
-    if(inventory[0]){ 
-        inventory[0] += 1;
-    }else{ 
-        inventory[0] = 1;
+    if (inventory[0]) {
+      inventory[0] += 1;
+    } else {
+      inventory[0] = 1;
     }
   }
 });
 
 const C = document.createElement("button");
-C.innerText = "+50 auto TD/s: 1000 TDs";
 C.className = "upgradeButton";
 C.name = "C";
+let priceC: number = 1000;
+C.innerText = `+50 auto TD/s: ${priceC} TDs`;
 app.append(C);
 upgrades.push(C.name);
 C.addEventListener("click", () => {
-  if (clicks >= 1000) {
-    clicks -= 1000; // Deduct cost of the upgrade
+  if (clicks >= priceC) {
+    clicks -= priceC; // Deduct cost of the upgrade
     growthRate += 50;
+    priceC *= 1.15
     updateDisplay();
-    if(inventory[0]){ 
-        inventory[0] += 1;
-    }else{ 
-        inventory[0] = 1;
+    if (inventory[0]) {
+      inventory[0] += 1;
+    } else {
+      inventory[0] = 1;
     }
   }
 });
@@ -96,14 +102,18 @@ function updateDisplay() {
   countDiv.innerText = `Touchdowns: ${clicks} \n`;
   countDiv.innerText += ` Growth Rate: ${growthRate}\n`;
   for (let i = 0; i < upgrades.length; i++) {
-    if(!inventory[i]){ inventory[i] = 0}
+    if (!inventory[i]) {
+      inventory[i] = 0;
+    }
     countDiv.innerText += ` ${upgrades[i]} : ${inventory[i]}`;
   }
-  A.disabled = clicks < 10
-  B.disabled = clicks < 100
-  C.disabled = clicks < 1000
+  A.disabled = clicks < 10;
+  B.disabled = clicks < 100;
+  C.disabled = clicks < 1000;
+  A.innerText = `+0.1 auto TD/s: ${priceA} TDs`;
+  B.innerText = `+2 auto TD/s: ${priceB} TDs`;
+  C.innerText = `+50 auto TD/s: ${priceC} TDs`;
 }
-
 
 //continuous growth
 let lastTimestamp = performance.now();
