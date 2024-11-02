@@ -59,33 +59,33 @@ const availableItems: Item[] = [
   { name: "OVERTIME TD", cost: 9999, rate: 999, index: 4, desc: "Game Over" },
 ];
 
-let growthRate: number = 0;
+let clicksPerSec: number = 0;
 const inventory: number[] = [];
 const buttons: HTMLButtonElement[] = [];
-// Create buttons for each item 
+// Create buttons for each item
 availableItems.forEach((item) => {
-  const B = document.createElement("button");
-  B.className = "upgradeButton";
-  B.name = item.name;
-  B.innerText = `${item.name} \n+${item.rate} auto TD/s: ${item.cost} TDs \n "${item.desc}"`;
-  app.append(B);
-  B.addEventListener("click", () => {
+  const button = document.createElement("button");
+  button.className = "upgradeButton";
+  button.name = item.name;
+  button.innerText = `${item.name} \n+${item.rate} auto TD/s: ${item.cost} TDs \n "${item.desc}"`;
+  app.append(button);
+  button.addEventListener("click", () => {
     if (clicks >= item.cost) {
-      clicks -= item.cost; 
-      growthRate += 0.1;
+      clicks -= item.cost;
+      clicksPerSec += 0.1;
       item.cost *= MARKUP;
       updateDisplay();
       inventory[item.index]++;
     }
   });
-  buttons.push(B);
+  buttons.push(button);
   inventory.push(0);
 });
 
 // Update the display and manage the upgrade button's state
 function updateDisplay() {
   countDiv.innerText = `Touchdowns: ${clicks} \n`;
-  countDiv.innerText += ` Growth Rate: ${growthRate}\n`;
+  countDiv.innerText += ` Growth Rate: ${clicksPerSec}\n`;
   for (let i = 0; i < availableItems.length; i++) {
     countDiv.innerText += ` ${availableItems[i].name} : ${inventory[i]}`;
   }
@@ -103,7 +103,7 @@ function updateCounter(timestamp: number) {
   const deltaTime = (timestamp - lastTimestamp) / SECOND;
   lastTimestamp = timestamp;
 
-  clicks += growthRate * deltaTime;
+  clicks += clicksPerSec * deltaTime;
   updateDisplay();
   requestAnimationFrame(updateCounter);
 }
