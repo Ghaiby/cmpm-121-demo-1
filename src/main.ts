@@ -1,5 +1,7 @@
 import "./style.css";
 
+const MARKUP = 1.15;
+const SECOND = 1000; 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameName = "Football Clicker";
@@ -41,9 +43,27 @@ interface Item {
 }
 
 const availableItems: Item[] = [
-  { name: "RUN", cost: 10, rate: 0.1, index: 0 ,desc: "Old school power football" },
-  { name: "PASS", cost: 100, rate: 2, index: 1 ,desc: "WR is down there somewhere" },
-  { name: "HAIL MARRY", cost: 1000, rate: 50, index: 2, desc: "A desperation throw" },
+  {
+    name: "RUN",
+    cost: 10,
+    rate: 0.1,
+    index: 0,
+    desc: "Old school power football",
+  },
+  {
+    name: "PASS",
+    cost: 100,
+    rate: 2,
+    index: 1,
+    desc: "WR is down there somewhere",
+  },
+  {
+    name: "HAIL MARRY",
+    cost: 1000,
+    rate: 50,
+    index: 2,
+    desc: "A desperation throw",
+  },
   { name: "PICK 6", cost: 2500, rate: 100, index: 3, desc: "Back all the way" },
   { name: "OVERTIME TD", cost: 9999, rate: 999, index: 4, desc: "Game Over" },
 ];
@@ -61,7 +81,7 @@ availableItems.forEach((item) => {
     if (clicks >= item.cost) {
       clicks -= item.cost; // Deduct cost of the upgrade
       growthRate += 0.1;
-      item.cost *= 1.15;
+      item.cost *= MARKUP;
       updateDisplay();
       inventory[item.index]++;
     }
@@ -88,7 +108,7 @@ function updateDisplay() {
 //continuous growth
 let lastTimestamp = performance.now();
 function updateCounter(timestamp: number) {
-  const deltaTime = (timestamp - lastTimestamp) / 1000;
+  const deltaTime = (timestamp - lastTimestamp) / SECOND;
   lastTimestamp = timestamp;
 
   clicks += growthRate * deltaTime;
