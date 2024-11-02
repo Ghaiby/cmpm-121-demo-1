@@ -1,7 +1,7 @@
 import "./style.css";
 
 const MARKUP = 1.15;
-const SECOND = 1000; 
+const SECOND = 1000;
 const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameName = "Football Clicker";
@@ -11,7 +11,7 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
-// add clicker button
+// Main button
 let clicks: number = 0;
 const button = document.createElement("button");
 button.innerText = "🏈";
@@ -21,18 +21,9 @@ button.addEventListener("click", () => {
   updateDisplay();
 });
 
-//Add div to show count
 const countDiv = document.createElement("div");
 countDiv.innerText = "Touchdowns: 0";
 app.append(countDiv);
-
-//automatic one second clicker
-// setInterval(() => {
-//   clicks++;
-//   countDiv.innerText = `Touchdowns: ${clicks}`;
-// }, 1000);
-
-//upgrade buttons
 
 interface Item {
   name: string;
@@ -71,6 +62,7 @@ const availableItems: Item[] = [
 let growthRate: number = 0;
 const inventory: number[] = [];
 const buttons: HTMLButtonElement[] = [];
+// Create buttons for each item 
 availableItems.forEach((item) => {
   const B = document.createElement("button");
   B.className = "upgradeButton";
@@ -79,7 +71,7 @@ availableItems.forEach((item) => {
   app.append(B);
   B.addEventListener("click", () => {
     if (clicks >= item.cost) {
-      clicks -= item.cost; // Deduct cost of the upgrade
+      clicks -= item.cost; 
       growthRate += 0.1;
       item.cost *= MARKUP;
       updateDisplay();
