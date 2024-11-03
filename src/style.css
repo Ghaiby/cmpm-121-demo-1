@@ -19,9 +19,8 @@ a {
   text-decoration: inherit;
 }
 
-
 body {
-  background-image: url("./Assets/footballBackground.png");
+  background-image: url("../Assets/footballBackground.png");
   background-size: 100% 100%;
   margin: 0;
   display: flex;
